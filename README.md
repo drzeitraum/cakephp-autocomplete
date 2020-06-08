@@ -233,8 +233,8 @@ function ac() {
             }),
             success: function (result) {
                 $("#" + where + "_result").html(result); // print
-                $('.multi li').click(function () {
-                    $('.multi').addClass('none'); // hide ul.multi
+                $('.ac-list li').click(function () {
+                    $('.ac-list').addClass('ac-none'); // hide ul.multi
                     $('#' + id_up).val($(this).text());  // insert name
                     $("#" + id_next).val($(this).attr('id')); // insert id
                 });
@@ -243,7 +243,7 @@ function ac() {
     });
     // hide ul.multi whatever
     $('body').click(function () {
-        $('.multi').addClass('none');
+        $('.ac-list').addClass('ac-none');
     });
 }
 
