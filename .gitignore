@@ -1,27 +1,21 @@
-# CakePHP 3
+/*
 
-/vendor/*
-/config/app.php
+!/config/routes.php
+!/config/tpl-form.php
+!/src/Controller/AppController.php
+!/src/Controller/AutocompleteController.php
+!/src/Controller/UsersController.php
+!/src/Template/Autocomplete/index.ctp
+!/src/Template/Users/edit.ctp
+!/src/View/Helper/BaseHelper.php
+!/src/View/Widget/CustomACWidget.php
+!/src/View/AppView.php
+!/webroot/css/style.css
+!/webroot/js/scripts.js
 
-/tmp/cache/models/*
-!/tmp/cache/models/empty
-/tmp/cache/persistent/*
-!/tmp/cache/persistent/empty
-/tmp/cache/views/*
-!/tmp/cache/views/empty
-/tmp/sessions/*
-!/tmp/sessions/empty
-/tmp/tests/*
-!/tmp/tests/empty
+!db.sql
 
-/logs/*
-!/logs/empty
+!.gitignore
 
-# CakePHP 2
-
-/app/tmp/*
-/app/Config/core.php
-/app/Config/database.php
-/vendors/*
-
-/.idea/*
+!LICENSE
+!README.md

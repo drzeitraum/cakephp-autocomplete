@@ -208,7 +208,7 @@ Router::scope('', function (RouteBuilder $routes) {
 
 ```php
 <?= $this->Form->create($user, ['id' => 'user']) ?>
-<?= $this->Form->control('country_id', ['type' => 'ac', 'options' => $transferCountries]) ?>
+<?= $this->Form->control('country_id', ['type' => 'ac', 'options' => $countries]) ?>
 <?= $this->Form->button('Save') ?>
 <?= $this->Form->end() ?>
 
