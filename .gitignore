@@ -2,7 +2,6 @@
 
 !/config/routes.php
 !/config/tpl-form.php
-!/src/Controller/AppController.php
 !/src/Controller/AutocompleteController.php
 !/src/Controller/UsersController.php
 !/src/Template/Layout/default.ctp

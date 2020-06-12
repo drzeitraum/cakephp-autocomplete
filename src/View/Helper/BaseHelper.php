@@ -4,7 +4,7 @@ namespace App\View\Helper;
 use Cake\View\Helper;
 
 /**
- * Base component
+ * Base helper
  */
 class BaseHelper extends Helper
 {
