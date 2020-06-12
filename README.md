@@ -1,6 +1,8 @@
 # Cakephp autocomplete input
 This is a simple example: how to create autocomplete input using widget and controller in CakePHP 3.
 
+[<<Look the DEMO>>](http://kotlyarov.us/cakephp-autocomplete/edit/1)
+
 #### Tables for `users` and `countries`
 
 ```mysql
@@ -33,7 +35,7 @@ INSERT INTO `users` (`id`, `login`, `password`, `country_id`) VALUES
 
 ```
 
-#### Create new widget file `CustomACWidget.php` in `/src/View/Widget/`
+#### Create new widget file `ACWidget.php` in `/src/View/Widget/`
 
 ```php
 <?
@@ -43,9 +45,9 @@ use Cake\View\Form\ContextInterface;
 use Cake\View\Widget\WidgetInterface;
 
 /**
- * CustomACWidget - custom autocomplete input class.
+ * ACWidget - custom autocomplete input class.
  */
-class CustomACWidget implements WidgetInterface
+class ACWidget implements WidgetInterface
 {
 
     protected $_templates;
@@ -99,7 +101,7 @@ return [
 ];
 ```
 
-#### Include custom template for form helper and our widget
+#### Include custom template for form helper and our widget in `src/View/AppView.php`
 
 ```php
 <?php
@@ -115,7 +117,7 @@ class AppView extends View
             [
                 'templates' => 'tpl-form',
                 'widgets' => [
-                    'ac' => ['CustomAC'],
+                    'ac' => ['AC'],
                 ]
             ]
         );
@@ -149,16 +151,18 @@ class AutocompleteController extends AppController
      */
     public function index()
     {
-        if ($this->getRequest()->getParam('isAjax')) {
+        $results = [];
 
+        if ($this->request->getParam('isAjax')) {
+          //  if ($this->request->is(['patch', 'post', 'put'])) {
             $results = $this->{$this->getRequest()->getQuery('where')}->find('all')
                 ->where(['name LIKE' => '%' . $this->getRequest()->getQuery('search') . '%'])
                 ->limit(10)
                 ->toArray();
+         }
 
-            $this->set(compact('results'));
+        $this->set(compact('results'));
 
-        }
     }
 
 }
@@ -179,43 +183,17 @@ class AutocompleteController extends AppController
 </ul>
 ```
 
-#### Add routes for Autocomplete and Users controller
-
-```php
-<?
-use Cake\Http\Middleware\CsrfProtectionMiddleware;
-use Cake\Routing\RouteBuilder;
-use Cake\Routing\Router;
-use Cake\Routing\Route\DashedRoute;
-
-Router::defaultRouteClass(DashedRoute::class);
-
-Router::scope('', function (RouteBuilder $routes) {
-
-    # users
-    $routes->connect('/users/:url/', ['controller' => 'Users', 'action' => 'edit'], ['pass' => ['url']]);
-
-    # autocomplete
-    $routes->connect('/autocomplete/', ['controller' => 'Autocomplete']);
-
-    $routes->fallbacks(DashedRoute::class);
-
-});
-
-```
-
 #### Add template `edit.ctp` for users edit action in `/src/Template/Users/`
 
 ```php
 <?= $this->Form->create($user, ['id' => 'user']) ?>
-<?= $this->Form->control('country_id', ['type' => 'ac', 'options' => $countries]) ?>
+<?= $this->Form->control('country_id', ['type' => 'ac', 'class' => 'ac-input', 'options' => $countries]) ?>
 <?= $this->Form->button('Save') ?>
 <?= $this->Form->end() ?>
-
 ```
 
 #### Add JS script for processing request with AJAX
-This simple script. You can use library (jQuery UI, EasyAutocomplete, etc) or modify this code for yourself.
+This simple script. You can use library (jQuery UI, EasyAutocomplete, etc) or modify this script.
 
 ```javascript
 ac();
@@ -226,7 +204,7 @@ function ac() {
         var search = $(this).val(); // search word
         var where = $(this).attr('name'); // where search
         $.ajax({
-            url: '/autocomplete/',
+            url: '/cakephp-autocomplete/autocomplete/', //change this path to the name of your Autocomplete controller
             data: ({
                 search: search,
                 where: where
@@ -234,14 +212,14 @@ function ac() {
             success: function (result) {
                 $("#" + where + "_result").html(result); // print
                 $('.ac-list li').click(function () {
-                    $('.ac-list').addClass('ac-none'); // hide ul.multi
+                    $('.ac-list').addClass('ac-none'); // hide ul ac-list
                     $('#' + id_up).val($(this).text());  // insert name
                     $("#" + id_next).val($(this).attr('id')); // insert id
                 });
             }
         });
     });
-    // hide ul.multi whatever
+    // hide ul ac-list whatever
     $('body').click(function () {
         $('.ac-list').addClass('ac-none');
     });
@@ -254,6 +232,12 @@ function ac() {
 ```css
 .ac {
     position: relative;
+}
+
+.ac ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 .ac .ac-none {
@@ -299,3 +283,5 @@ function ac() {
 echo $this->Form->control('<your_id>', ['type' => '<your_widget_name>']
 ```
 > Similar to other custom fields, like `image radio`, `multi checkbox` & etc.
+
+[<<Look the DEMO>>](https://kotlyarov.us/cakephp-autocomplete/edit/1)

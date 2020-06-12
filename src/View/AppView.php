@@ -11,7 +11,7 @@ class AppView extends View
             [
                 'templates' => 'tpl-form',
                 'widgets' => [
-                    'ac' => ['CustomAC'],
+                    'ac' => ['AC'],
                 ]
             ]
         );

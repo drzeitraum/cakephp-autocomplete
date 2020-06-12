@@ -9,11 +9,7 @@ Router::defaultRouteClass(DashedRoute::class);
 Router::scope('', function (RouteBuilder $routes) {
 
     # users
-    $routes->connect('/users/:url/', ['controller' => 'Users', 'action' => 'edit'], ['pass' => ['url']]);
-
-    # autocomplete
-    $routes->connect('/autocomplete/', ['controller' => 'Autocomplete']);
-
+    $routes->connect('/edit/:id', ['controller' => 'Users', 'action' => 'edit'], ['pass' => ['id']]);
     $routes->fallbacks(DashedRoute::class);
 
 });

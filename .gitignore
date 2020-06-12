@@ -5,6 +5,7 @@
 !/src/Controller/AppController.php
 !/src/Controller/AutocompleteController.php
 !/src/Controller/UsersController.php
+!/src/Template/Layout/default.ctp
 !/src/Template/Autocomplete/index.ctp
 !/src/Template/Users/edit.ctp
 !/src/View/Helper/BaseHelper.php
