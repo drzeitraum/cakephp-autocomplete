@@ -1,5 +1,5 @@
-# Cakephp autocomplete input
-This is a simple example: how to create autocomplete input using widget and controller in CakePHP 3.
+# CakePHP 3.x autocomplete input ([DEMO](https://kotlyarov.us/cakephp-autocomplete/edit/1))
+This is a simple example: how to create autocomplete input using widget and controller in CakePHP 3.x
 
 #### Tables for `users` and `countries`
 
@@ -280,5 +280,3 @@ function ac() {
 echo $this->Form->control('<your_id>', ['type' => '<your_widget_name>']
 ```
 > Similar to other custom fields, like `image radio`, `multi checkbox` & etc.
-
-[Look the DEMO](https://kotlyarov.us/cakephp-autocomplete/edit/1)
