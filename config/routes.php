@@ -9,7 +9,7 @@ Router::defaultRouteClass(DashedRoute::class);
 Router::scope('', function (RouteBuilder $routes) {
 
     # users
-    $routes->connect('/edit/:id', ['controller' => 'Users', 'action' => 'edit'], ['pass' => ['id']]);
+    $routes->connect('/edit/:id', ['controller' => 'Users', 'action' => 'edit'])->setPass(['id']);
     $routes->fallbacks(DashedRoute::class);
 
 });
