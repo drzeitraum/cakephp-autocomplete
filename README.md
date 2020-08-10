@@ -9,28 +9,12 @@ CREATE TABLE `countries` (
   `name` char(255) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
-INSERT INTO `countries` (`id`, `name`) VALUES
-(1, 'Russia'),
-(2, 'Canada'),
-(3, 'China'),
-(4, 'USA'),
-(5, 'Brazil'),
-(6, 'Australia'),
-(7, 'India'),
-(8, 'Argentina'),
-(9, 'Kazakhstan'),
-(10, 'Algeria');
-
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `login` char(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
   `country_id` int(5) UNSIGNED DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
-
-INSERT INTO `users` (`id`, `login`, `password`, `country_id`) VALUES
-(1, 'admin', NULL, NULL);
-
 ```
 
 #### Create new widget file `ACWidget.php` in `/src/View/Widget/`
@@ -65,6 +49,7 @@ class ACWidget implements WidgetInterface
         $ac[] = $this->_templates->format('ac', [
             'name' => $data['name'],
             'id' => $data['id'],
+            'class' => $data['class'],
             'val' => $data['val'] ? $data['val'] : '', // value id list
             'value' => isset($data['options']->toArray()[$data['val']]) ? $data['options']->toArray()[$data['val']] : '', // value name list
             'where' => $data['options']->getRepository()->getAlias() // table name
