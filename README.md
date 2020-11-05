@@ -1,26 +1,14 @@
 # CakePHP 3.x autocomplete input ([DEMO](https://kotlyarov.us/cakephp-autocomplete/edit/1))
 This is a simple example: how to create autocomplete input using widget and controller in CakePHP 3.x
 
-#### Tables for `users` and `countries`
+### Create tables for `users` and `countries`
 
-```mysql
-CREATE TABLE `countries` (
-  `id` int(10) NOT NULL,
-  `name` char(255) COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+See the [db.sql](https://github.com/drzeitraum/cakephp-autocomplete/blob/master/db.sql) file
 
-CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
-  `login` char(255) DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL,
-  `country_id` int(5) UNSIGNED DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
-```
-
-#### Create new widget file `ACWidget.php` in `/src/View/Widget/`
+### Create new widget file [ACWidget.php](https://github.com/drzeitraum/cakephp-autocomplete/blob/master/db.sql) in `/src/View/Widget/`
 
 ```php
-<?
+<?php
 namespace App\View\Widget;
 
 use Cake\View\Form\ContextInterface;
@@ -41,11 +29,8 @@ class ACWidget implements WidgetInterface
 
     public function render(array $data, ContextInterface $context)
     {
-
-        $ac[] = $this->_templates->format('ac_prefix', [
-            // you can add your data in prefix
-        ]);
-
+        // prefix
+        $ac[] = $this->_templates->format('ac_prefix', []);
         $ac[] = $this->_templates->format('ac', [
             'name' => $data['name'],
             'id' => $data['id'],
@@ -54,13 +39,9 @@ class ACWidget implements WidgetInterface
             'value' => isset($data['options']->toArray()[$data['val']]) ? $data['options']->toArray()[$data['val']] : '', // value name list
             'where' => $data['options']->getRepository()->getAlias() // table name
         ]);
-
-        $ac[] = $this->_templates->format('ac_suffix', [
-            // you can add your data in suffix
-        ]);
-
+        //suffix
+        $ac[] = $this->_templates->format('ac_suffix', []);
         return $ac;
-
     }
 
     public function secureFields(array $data)
@@ -69,11 +50,11 @@ class ACWidget implements WidgetInterface
             $data['name']
         ];
     }
-}
 
+}
 ```
 
-#### Create template `tpl-form.php` for FormHelper in `/config/` or include in your file
+### Create template [tpl-form.php](https://github.com/drzeitraum/cakephp-autocomplete/blob/master/config/tpl-form.php) for FormHelper in `/config/` or include in your file
 
 ```php
 <?php
@@ -84,7 +65,7 @@ return [
 ];
 ```
 
-#### Include custom template for form helper and our widget in `src/View/AppView.php`
+### Include custom template [AppView.php](https://github.com/drzeitraum/cakephp-autocomplete/blob/master/src/View/AppView.php) for form helper and our widget in `src/View/`
 
 ```php
 <?php
@@ -109,7 +90,7 @@ class AppView extends View
 
 ```
 
-#### Create controller `AutocompleteController.php` in `/src/controller/`
+### Create controller [AutocompleteController.php](https://github.com/drzeitraum/cakephp-autocomplete/blob/master/src/Controller/AutocompleteController.php) in `/src/controller/`
 
 ```php
 <?php
@@ -151,7 +132,7 @@ class AutocompleteController extends AppController
 
 ```
 
-#### Create view `index.ctp` for controller Autocomplete in `/src/Template/Autocomplete/`
+### Create view [index.ctp](https://github.com/drzeitraum/cakephp-autocomplete/blob/master/src/Template/Autocomplete/index.ctp) for controller Autocomplete in `/src/Template/Autocomplete/`
 
 ```html
 <ul class='ac-list'>
@@ -165,7 +146,7 @@ class AutocompleteController extends AppController
 </ul>
 ```
 
-#### Add template `edit.ctp` for users edit action in `/src/Template/Users/`
+### Add template [edit.ctp](https://github.com/drzeitraum/cakephp-autocomplete/blob/master/src/Template/Users/edit.ctp) for users edit action in `/src/Template/Users/`
 
 ```php
 <?= $this->Form->create($user, ['id' => 'user']) ?>
@@ -174,7 +155,7 @@ class AutocompleteController extends AppController
 <?= $this->Form->end() ?>
 ```
 
-#### Add JS script for processing request with AJAX
+### Add JavaScript
 This simple script. You can use library (jQuery UI, EasyAutocomplete, etc) or modify this script.
 
 ```javascript
@@ -209,7 +190,7 @@ function ac() {
 
 ```
 
-#### And style
+### Add Styles 
 
 ```css
 .ac {
@@ -262,6 +243,8 @@ function ac() {
 
 > After setting, the output of our custom fields in views becomes simple:
 ```php
-echo $this->Form->control('<your_id>', ['type' => '<your_widget_name>']
+echo $this->Form->control('<your_id>', ['type' => '<your_widget_name>']);
 ```
-> Similar to other custom fields, like `image radio`, `multi checkbox` & etc.
+
+### Security
+This is a simplified version of autocomplete created using a widget. To protect the application from searching through data in the database, specify only the data that you need in the `Autocomplete` controller. You can also create separate actions with different conditions in the `Countries` controller instead.

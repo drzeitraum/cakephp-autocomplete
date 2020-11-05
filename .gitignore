@@ -8,7 +8,7 @@
 !/src/Template/Autocomplete/index.ctp
 !/src/Template/Users/edit.ctp
 !/src/View/Helper/BaseHelper.php
-!/src/View/Widget/CustomACWidget.php
+!/src/View/Widget/ACWidget.php
 !/src/View/AppView.php
 !/webroot/css/style.css
 !/webroot/js/scripts.js

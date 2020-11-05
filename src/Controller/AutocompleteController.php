@@ -24,6 +24,7 @@ class AutocompleteController extends AppController
 
         if ($this->request->getParam('isAjax')) {
             $results = $this->{$this->getRequest()->getQuery('where')}->find('all')
+                ->select(['id', 'name'])
                 ->where(['name LIKE' => '%' . $this->getRequest()->getQuery('search') . '%'])
                 ->limit(10)
                 ->toArray();
