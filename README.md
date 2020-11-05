@@ -248,3 +248,4 @@ echo $this->Form->control('<your_id>', ['type' => '<your_widget_name>']);
 
 ### Security
 This is a simplified version of autocomplete created using a widget. To protect the application from searching through data in the database, specify only the data that you need in the `Autocomplete` controller. You can also create separate actions with different conditions in the `Countries` controller instead.
+This decision is in no way a guide to action.
