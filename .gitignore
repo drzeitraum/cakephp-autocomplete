@@ -1,5 +1,6 @@
 *
 !*/
+/vendor/
 
 !/config/routes.php
 !/config/tpl-form.php
